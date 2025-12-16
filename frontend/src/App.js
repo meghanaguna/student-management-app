@@ -1,24 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import {useState, useEffect} from "react";
+import API from "./services/api";
+import StudentForm from './components/StudentForm';
+import StudentList from "./components/StudentList";
 
 function App() {
+  const [students, setStudents] = useState([]);
+
+  const fetchStudents = async () =>{
+    const res = await API.get("/students");
+    setStudents(res.data);
+  };
+
+ useEffect(() => {
+  fetchStudents();
+ }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <h1>Student Management</h1>
+      <StudentForm fetchStudents={fetchStudents}/>
+      <StudentList students={students} fetchStudents={fetchStudents}/>
+    </>
   );
 }
 
