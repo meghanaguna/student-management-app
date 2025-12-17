@@ -5,6 +5,7 @@ import StudentList from "./components/StudentList";
 
 function App() {
   const [students, setStudents] = useState([]);
+  const [selectedStudent, setSelectedStudent] = useState(null);
 
   const fetchStudents = async () =>{
     const res = await API.get("/students");
@@ -17,9 +18,8 @@ function App() {
 
   return (
     <>
-      <h1>Student Management</h1>
-      <StudentForm fetchStudents={fetchStudents}/>
-      <StudentList students={students} fetchStudents={fetchStudents}/>
+      <StudentForm fetchStudents={fetchStudents} selectedStudent = {selectedStudent} setSelectedStudent = {setSelectedStudent} />
+      <StudentList students={students} fetchStudents={fetchStudents} setSelectedStudent = {setSelectedStudent}/>
     </>
   );
 }

@@ -7,7 +7,7 @@ exports.getAll = (req,res) =>{
     })
 }
 
-exports.create((req,res) =>{
+exports.create = ((req,res) =>{
     Student.addStudent(req.body, ()=>{
         res.json({"message": "Student added successfully"});
     })
@@ -20,7 +20,11 @@ exports.update = (req,res) => {
 }
 
 exports.remove = (req,res) =>{
-    Student.deleteStudent(req.params.id, () =>{
+    Student.deleteStudent(req.params.id, (err) =>{
+        if(err){
+            console.log("err", err);
+            return res.status(500).json({"err":"Delete Failed"})
+        }
         res.json({"message":"student data deleted successfully"});
     })
 }

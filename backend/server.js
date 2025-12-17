@@ -6,7 +6,7 @@ const port =3001;
 app.use(cors());
 app.use(express.json());
 
-app.use("/students", reuire("./routes/studentRoutes"));
+app.use("/students", require("./routes/studentRoutes"));
 
 app.listen(port, () =>{
     console.log("app is listening");
